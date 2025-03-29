@@ -1,0 +1,57 @@
+name: crypto_panel
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  fl_chart: ^0.70.2
+  flutter_svg: ^2.0.17
+  google_fonts: ^6.2.1
+  provider: ^6.1.4
+  sizer: ^3.0.5
+  gap: ^3.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/card.png
+    - assets/ring.svg
+    - assets/calendar.svg
+    - assets/mac-action.svg
+    - assets/home.svg
+    - assets/pie-chart.svg
+    - assets/clipboard.svg
+    - assets/credit-card.svg
+    - assets/trophy.svg
+    - assets/invoice.svg
+    - assets/drop.svg
+    - assets/salary.svg
+    - assets/electricity.svg
+    - assets/wifi.svg
+    - assets/transfer.svg
+    - assets/bank.svg
+    - assets/document.svg
+    - assets/woman.png
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
