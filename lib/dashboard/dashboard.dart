@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 
 import '../component/appbar_action_item.dart';
@@ -5,7 +7,7 @@ import '../component/bar_chart.dart';
 import '../component/header.dart';
 import '../component/history_table.dart';
 import '../component/info_card.dart';
-import '../component/payment_details_list.dart';
+import '../component/payment_details_list.dart'; 
 import '../component/side_menu.dart';
 import '../config/responsive.dart';
 import '../config/size_config.dart';
@@ -57,25 +59,25 @@ class Dashboard extends StatelessWidget {
                       runSpacing: 20,
                       alignment: WrapAlignment.spaceBetween,
                       children: [
-                        InfoCard(
+                        PremiumInfoCard(
                           icon: 'assets/credit-card.svg',
                           label: 'Transfer via \nCard number',
-                          amount: '\$1200',
+                          amount: '\$1,207.5',
                         ),
-                        InfoCard(
+                        PremiumInfoCard(
                           icon: 'assets/transfer.svg',
                           label: 'Transfer via \nOnline Banks',
-                          amount: '\$150',
+                          amount: '\$1,270.5',
                         ),
-                        InfoCard(
+                        PremiumInfoCard(
                           icon: 'assets/bank.svg',
                           label: 'Transfer \nSame Bank',
-                          amount: '\$1500',
+                          amount: '\$1,270.5',
                         ),
-                        InfoCard(
+                        PremiumInfoCard(
                           icon: 'assets/invoice.svg',
                           label: 'Transfer to \nOther Bank',
-                          amount: '\$1500',
+                          amount: '\$1,270.5',
                         ),
                       ],
                     ),
@@ -94,7 +96,7 @@ class Dashboard extends StatelessWidget {
                               color: AppColors.secondary,
                             ),
                             PrimaryText(
-                              text: '\$1500',
+                              text: '\$1,650.00',
                               size: 30,
                               fontWeight: FontWeight.w800,
                             ),
@@ -111,7 +113,7 @@ class Dashboard extends StatelessWidget {
                     SizedBox(height: SizeConfig.blockSizeVertical! * 3),
                     SizedBox(
                       height: 180,
-                      child: BarChartComponent(), // Fixed typo in class name
+                      child: BarChartComponent(), 
                     ),
                     SizedBox(height: SizeConfig.blockSizeVertical! * 5),
                     Column(

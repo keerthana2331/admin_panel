@@ -1,9 +1,10 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
-import 'dart:ui';
+
 import '../config/size_config.dart';
 import '../data/data.dart';
-import '../style/colors.dart';
-import '../style/style.dart';
+
 import 'payment_list_tile.dart';
 
 class PaymentDetailList extends StatelessWidget {
@@ -32,7 +33,7 @@ class PaymentDetailList extends StatelessWidget {
           children: [
             SizedBox(height: SizeConfig.blockSizeVertical! * 4),
             
-            // Redesigned Outer Box Above the Card Image
+          
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               padding: const EdgeInsets.all(15),
@@ -65,7 +66,7 @@ class PaymentDetailList extends StatelessWidget {
               ),
             ),
             
-            // Animated Card with Perspective Effect
+            
             TweenAnimationBuilder(
               tween: Tween<double>(begin: 0, end: 1),
               duration: const Duration(milliseconds: 800),
@@ -117,7 +118,7 @@ class PaymentDetailList extends StatelessWidget {
     );
   }
 
-  // Enhanced Section Header with Animation
+
   Widget _sectionHeader(String title) {
     return TweenAnimationBuilder(
       tween: Tween<double>(begin: 0, end: 1),
@@ -153,7 +154,7 @@ class PaymentDetailList extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            '02 Mar 2021',
+            '02 Sep 2024',
             style: TextStyle(
               fontSize: 14,
               color: Colors.white.withOpacity(0.8),
@@ -182,7 +183,7 @@ class PaymentDetailList extends StatelessWidget {
         );
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(25), // Slightly rounded corners
+        borderRadius: BorderRadius.circular(25),
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -215,7 +216,7 @@ class PaymentDetailList extends StatelessWidget {
   }
 
 
-  // Enhanced Activity List with Staggered Animation
+  
   Widget _activityList(List<Map<String, String>> activities) {
     return Column(
       children: List.generate(
@@ -254,7 +255,7 @@ class PaymentDetailList extends StatelessWidget {
   }
 }
 
-// Custom Widget for Staggered Animations
+
 class AnimatedListItem extends StatelessWidget {
   final Widget child;
   final int delay;

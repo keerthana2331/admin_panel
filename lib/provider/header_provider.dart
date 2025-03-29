@@ -6,7 +6,7 @@ class ThemeProvider extends ChangeNotifier {
     [Colors.teal, Colors.green],
     [Colors.orange, Colors.red],
   ];
-  
+
   int _currentIndex = 0;
 
   List<Color> get currentGradient => gradients[_currentIndex];

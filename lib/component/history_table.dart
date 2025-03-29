@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -5,7 +7,6 @@ import '../config/responsive.dart';
 import '../config/size_config.dart';
 import '../data/data.dart';
 import '../provider/header_provider.dart';
-
 
 class HistoryTable extends StatelessWidget {
   @override
@@ -33,9 +34,13 @@ class HistoryTable extends StatelessWidget {
         ],
       ),
       child: SingleChildScrollView(
-        scrollDirection: Responsive.isDesktop(context) ? Axis.vertical : Axis.horizontal,
+        scrollDirection:
+            Responsive.isDesktop(context) ? Axis.vertical : Axis.horizontal,
         child: SizedBox(
-          width: Responsive.isDesktop(context) ? double.infinity : SizeConfig.screenWidth,
+          width:
+              Responsive.isDesktop(context)
+                  ? double.infinity
+                  : SizeConfig.screenWidth,
           child: Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             columnWidths: {
@@ -47,7 +52,10 @@ class HistoryTable extends StatelessWidget {
             },
             children: [
               _buildTableHeader(),
-              ...List.generate(transactionHistory.length, (index) => _buildTableRow(index, colors)),
+              ...List.generate(
+                transactionHistory.length,
+                (index) => _buildTableRow(index, colors),
+              ),
             ],
           ),
         ),
@@ -81,12 +89,10 @@ class HistoryTable extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-         child: CircleAvatar(
-  radius: 18,
-  backgroundImage: AssetImage("assets/woman.png"),
-),
-
-
+          child: CircleAvatar(
+            radius: 18,
+            backgroundImage: AssetImage("assets/woman.png"),
+          ),
         ),
         _tableCell(transactionHistory[index]["label"] ?? ''),
         _tableCell(transactionHistory[index]["time"] ?? ''),
@@ -101,7 +107,11 @@ class HistoryTable extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 12),
       child: Text(
         text,
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
         textAlign: TextAlign.center,
       ),
     );
@@ -119,7 +129,10 @@ class HistoryTable extends StatelessWidget {
   }
 
   Widget _statusCell(String status) {
-    Color statusColor = status.toLowerCase() == "success" ? Colors.greenAccent : Colors.redAccent;
+    Color statusColor =
+        status.toLowerCase() == "success"
+            ? Colors.greenAccent
+            : Colors.redAccent;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Container(
@@ -131,7 +144,11 @@ class HistoryTable extends StatelessWidget {
         ),
         child: Text(
           status,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: statusColor),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: statusColor,
+          ),
           textAlign: TextAlign.center,
         ),
       ),

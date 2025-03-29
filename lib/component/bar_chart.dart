@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element_parameter
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../provider/bar_chart_provider.dart';
 
 class BarChartScreen extends StatelessWidget {
-  const BarChartScreen({Key? key}) : super(key: key);
+  const BarChartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class BarChartScreen extends StatelessWidget {
 }
 
 class _PeriodSelector extends StatelessWidget {
-  const _PeriodSelector({Key? key}) : super(key: key);
+  const _PeriodSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +56,19 @@ class _PeriodSelector extends StatelessWidget {
       child: DropdownButton<int>(
         value: provider.selectedYear,
         dropdownColor: Colors.black87,
-        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        items: [2023, 2024, 2025, 2026]
-            .map((year) => DropdownMenuItem(value: year, child: Text(year.toString())))
-            .toList(),
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+        items:
+            [2023, 2024, 2025, 2026]
+                .map(
+                  (year) => DropdownMenuItem(
+                    value: year,
+                    child: Text(year.toString()),
+                  ),
+                )
+                .toList(),
         onChanged: (year) {
           if (year != null) provider.updateYear(year);
         },
@@ -69,7 +80,7 @@ class _PeriodSelector extends StatelessWidget {
 }
 
 class BarChartComponent extends StatelessWidget {
-  const BarChartComponent({Key? key}) : super(key: key);
+  const BarChartComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,14 +97,31 @@ class BarChartComponent extends StatelessWidget {
             sideTitles: SideTitles(
               showTitles: true,
               getTitlesWidget: (value, meta) {
-                final months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                return Text(months[value.toInt()], style: const TextStyle(color: Colors.white, fontSize: 12));
+                final months = [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ];
+                return Text(
+                  months[value.toInt()],
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                );
               },
             ),
           ),
         ),
         barGroups: List.generate(12, (index) {
-          final double value = (index % 2 == 0) ? 50 + (index * 3.0) : 30 + (index * 2.5);
+          final double value =
+              (index % 2 == 0) ? 50 + (index * 3.0) : 30 + (index * 2.5);
           return BarChartGroupData(
             x: index,
             barRods: [
@@ -118,7 +146,10 @@ class BarChartComponent extends StatelessWidget {
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               return BarTooltipItem(
                 "${rod.toY.toInt()}%",
-                const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               );
             },
           ),

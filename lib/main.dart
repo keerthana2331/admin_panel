@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters, library_private_types_in_public_api
+
 import 'package:crypto_panel/provider/header_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

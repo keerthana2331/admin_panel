@@ -6,9 +6,10 @@ class ThemeProvider extends ChangeNotifier {
   List<Color> get currentGradient => _currentGradient;
 
   void switchGradient() {
-    _currentGradient = _currentGradient == [Colors.blue, Colors.purple]
-        ? [Colors.orange, Colors.red]
-        : [Colors.blue, Colors.purple];
+    _currentGradient =
+        _currentGradient == [Colors.blue, Colors.purple]
+            ? [Colors.orange, Colors.red]
+            : [Colors.blue, Colors.purple];
     notifyListeners();
   }
 }

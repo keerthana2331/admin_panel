@@ -1,6 +1,7 @@
+// ignore_for_file: use_super_parameters, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class AppBarActionItems extends StatelessWidget {
   const AppBarActionItems({Key? key}) : super(key: key);
@@ -8,21 +9,15 @@ class AppBarActionItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent, // Making the app bar transparent
-      ),
+      decoration: BoxDecoration(color: Colors.transparent),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       margin: const EdgeInsets.only(right: 8),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildActionButton(
-            'assets/calendar.svg',
-            () {
-              _showCalendarDialog(context);
-            },
-            Colors.indigo.shade300,
-          ),
+          _buildActionButton('assets/calendar.svg', () {
+            _showCalendarDialog(context);
+          }, Colors.indigo.shade300),
           const SizedBox(width: 15),
           _buildNotificationButton(),
           const SizedBox(width: 20),
@@ -32,7 +27,11 @@ class AppBarActionItems extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(String assetPath, VoidCallback onPressed, Color color) {
+  Widget _buildActionButton(
+    String assetPath,
+    VoidCallback onPressed,
+    Color color,
+  ) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -49,11 +48,7 @@ class AppBarActionItems extends StatelessWidget {
           onTap: onPressed,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: SvgPicture.asset(
-              assetPath,
-              width: 20,
-              color: Colors.white,
-            ),
+            child: SvgPicture.asset(assetPath, width: 20, color: Colors.white),
           ),
         ),
       ),
@@ -142,10 +137,7 @@ class AppBarActionItems extends StatelessWidget {
           const SizedBox(width: 8),
           const Text(
             'Keerthana',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -153,6 +145,8 @@ class AppBarActionItems extends StatelessWidget {
   }
 
   void _showCalendarDialog(BuildContext context) async {
+    if (!context.mounted) return;
+
     await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -161,7 +155,5 @@ class AppBarActionItems extends StatelessWidget {
     );
   }
 
-  void _showNotificationDialog() {
-    // Handle notification action
-  }
+  void _showNotificationDialog() {}
 }

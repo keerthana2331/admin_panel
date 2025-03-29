@@ -1,8 +1,9 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../config/responsive.dart';
 import '../provider/header_provider.dart';
-
 
 class Header extends StatelessWidget {
   @override
@@ -57,11 +58,12 @@ class Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
-            colors: [Colors.pinkAccent, Colors.purpleAccent],
-          ).createShader(bounds),
+          shaderCallback:
+              (bounds) => LinearGradient(
+                colors: [Colors.pinkAccent, Colors.purpleAccent],
+              ).createShader(bounds),
           child: Text(
-            'Dashboard',
+            'Admin Panel',
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
@@ -125,10 +127,7 @@ class Header extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(
-              color: Colors.white,
-              width: 2,
-            ),
+            borderSide: BorderSide(color: Colors.white, width: 2),
           ),
           prefixIcon: Icon(Icons.search, color: Colors.white, size: 22),
           suffixIcon: Icon(Icons.mic, color: Colors.white, size: 22),
