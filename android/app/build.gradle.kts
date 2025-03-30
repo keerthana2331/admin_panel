@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.crypto_panel"
+    namespace = "com.example.keerthana_admin_panel"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 

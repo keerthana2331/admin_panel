@@ -1,144 +1,201 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../config/responsive.dart';
-import '../provider/header_provider.dart';
+import '../style/colors.dart';
 
 class Header extends StatelessWidget {
+  const Header({required Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    var themeProvider = Provider.of<ThemeProvider>(context);
-    var colors = themeProvider.currentGradient;
-
-    return AnimatedContainer(
-      duration: Duration(seconds: 1),
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+    return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: colors,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.01),
+            Colors.white.withOpacity(0.05),
+          ],
         ),
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: colors.last.withOpacity(0.4),
-            blurRadius: 20,
-            spreadRadius: -5,
-            offset: Offset(0, 10),
-          ),
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            spreadRadius: 1,
-            offset: Offset(0, 5),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(16),
       ),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      margin: EdgeInsets.only(bottom: 16),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          _buildHeadingSection(context),
-          Spacer(),
+          _buildHeaderText(),
+          Spacer(flex: 1),
           Expanded(
             flex: Responsive.isDesktop(context) ? 1 : 3,
             child: _buildSearchField(),
-          ),
-          IconButton(
-            icon: Icon(Icons.color_lens, color: Colors.white),
-            onPressed: () => themeProvider.switchGradient(),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildHeadingSection(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ShaderMask(
-          shaderCallback:
-              (bounds) => LinearGradient(
-                colors: [Colors.pinkAccent, Colors.purpleAccent],
-              ).createShader(bounds),
-          child: Text(
-            'Admin Panel',
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+  Widget _buildHeaderText() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.blue.withOpacity(0.08),
+            Colors.purple.withOpacity(0.03),
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ShaderMask(
+            shaderCallback:
+                (bounds) => LinearGradient(
+                  colors: [
+                    Color(0xFF4A6FFF),
+                    Color(0xFF5E54FA),
+                    Color(0xFF9747FF),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ).createShader(bounds),
+            child: Text(
+              'Admin Panel',
+              style: GoogleFonts.poppins(
+                fontSize: 30,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 8),
-        AnimatedContainer(
-          duration: Duration(seconds: 1),
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.15),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
+          SizedBox(height: 4),
+          Row(
             children: [
-              Icon(Icons.update, size: 18, color: Colors.white70),
-              SizedBox(width: 6),
+              Container(
+                height: 16,
+                width: 3,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFF4A6FFF), Color(0xFF9747FF)],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              SizedBox(width: 8),
               Text(
-                'Latest Updates',
-                style: TextStyle(color: Colors.white70, fontSize: 16),
+                'Payments updates',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 0.3,
+                  color: AppColors.secondary,
+                ),
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget _buildSearchField() {
     return Container(
-      height: 56,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        gradient: LinearGradient(
-          colors: [Colors.deepPurpleAccent, Colors.purpleAccent],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.purple.withOpacity(0.5),
-            blurRadius: 15,
-            spreadRadius: -5,
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 12,
             offset: Offset(0, 6),
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: Colors.white.withOpacity(0.5),
+            blurRadius: 0,
+            offset: Offset(0, 0),
+            spreadRadius: 1,
           ),
         ],
       ),
       child: TextField(
+        style: GoogleFonts.inter(
+          fontSize: 14,
+          color: AppColors.black.withOpacity(0.8),
+        ),
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white.withOpacity(0.1),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          fillColor: AppColors.white,
+          contentPadding: EdgeInsets.only(
+            left: 40.0,
+            right: 15,
+            top: 15,
+            bottom: 15,
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
-              color: Colors.white.withOpacity(0.3),
-              width: 2,
+              color: Colors.white.withOpacity(0.4),
+              width: 1.5,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
-            borderSide: BorderSide(color: Colors.white, width: 2),
+            borderSide: BorderSide(
+              color: Color(0xFF4A6FFF).withOpacity(0.5),
+              width: 1.5,
+            ),
           ),
-          prefixIcon: Icon(Icons.search, color: Colors.white, size: 22),
-          suffixIcon: Icon(Icons.mic, color: Colors.white, size: 22),
-          hintText: 'Search dashboards and reports...',
-          hintStyle: TextStyle(
-            color: Colors.white.withOpacity(0.7),
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+          prefixIcon: Container(
+            padding: EdgeInsets.all(12),
+            child: ShaderMask(
+              shaderCallback:
+                  (bounds) => LinearGradient(
+                    colors: [Color(0xFF4A6FFF), Color(0xFF9747FF)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ).createShader(bounds),
+              child: Icon(Icons.search, color: Colors.white),
+            ),
+          ),
+          hintText: 'Search dashboard',
+          hintStyle: GoogleFonts.inter(
+            color: AppColors.secondary.withOpacity(0.6),
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
+          suffixIcon: Container(
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFF1F5FF), Color(0xFFE4E9F7)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Icon(
+              Icons.tune,
+              color: Color(0xFF4A6FFF).withOpacity(0.7),
+              size: 20,
+            ),
           ),
         ),
-        style: TextStyle(color: Colors.white, fontSize: 16),
       ),
     );
   }

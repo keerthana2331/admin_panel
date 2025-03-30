@@ -1,7 +1,8 @@
-// ignore_for_file: use_super_parameters, deprecated_member_use
+// ignore_for_file: use_super_parameters
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import '../style/colors.dart';
 
 class AppBarActionItems extends StatelessWidget {
   const AppBarActionItems({Key? key}) : super(key: key);
@@ -9,151 +10,194 @@ class AppBarActionItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.transparent),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      margin: const EdgeInsets.only(right: 8),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildActionButton('assets/calendar.svg', () {
-            _showCalendarDialog(context);
-          }, Colors.indigo.shade300),
-          const SizedBox(width: 15),
-          _buildNotificationButton(),
-          const SizedBox(width: 20),
-          _buildProfileSection(),
-        ],
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Colors.white.withOpacity(0.0),
+            Colors.white.withOpacity(0.05),
+          ],
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            _buildActionButton(
+              'assets/calendar.svg',
+              Colors.indigo.shade300,
+              hasNotification: true,
+            ),
+            SizedBox(width: 12),
+            _buildActionButton(
+              'assets/ring.svg',
+              Colors.amber.shade300,
+              hasNotification: true,
+              notificationCount: 3,
+            ),
+            SizedBox(width: 20),
+            _buildProfileButton(context),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildActionButton(
-    String assetPath,
-    VoidCallback onPressed,
-    Color color,
-  ) {
+    String iconPath,
+    Color accentColor, {
+    bool hasNotification = false,
+    int notificationCount = 0,
+  }) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withOpacity(0.8), color.withOpacity(0.6)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.1),
+            Colors.white.withOpacity(0.05),
+          ],
         ),
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SvgPicture.asset(assetPath, width: 20, color: Colors.white),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNotificationButton() {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.orange.shade300, Colors.orange.shade200],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(12),
-              onTap: () {
-                _showNotificationDialog();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+          onTap: () {},
+          child: Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                 child: SvgPicture.asset(
-                  'assets/ring.svg',
+                  iconPath,
                   width: 20,
-                  color: Colors.white,
+                  height: 20,
+                  color: accentColor,
                 ),
               ),
-            ),
+              if (hasNotification)
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    padding:
+                        notificationCount > 0
+                            ? EdgeInsets.symmetric(horizontal: 4, vertical: 1)
+                            : EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Colors.red.shade400, Colors.red.shade600],
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.white, width: 1.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child:
+                        notificationCount > 0
+                            ? Text(
+                              notificationCount.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                            : SizedBox(width: 1, height: 1),
+                  ),
+                ),
+            ],
           ),
         ),
-        Positioned(
-          right: -4,
-          top: -4,
-          child: Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: Colors.red,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 1.5),
+      ),
+    );
+  }
+
+  Widget _buildProfileButton(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 140),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFE0E8FF), Color(0xFFD0D8EE)],
+          ),
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: Offset(0, 2),
             ),
-            child: const Text(
-              '3',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(14),
+            onTap: () {},
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircleAvatar(
+                    radius: 17,
+                    backgroundImage: AssetImage('assets/woman.png'),
+                  ),
+                  SizedBox(width: 4),
+                  Flexible(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Keerthana',
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          'Admin',
+                          style: TextStyle(
+                            color: AppColors.black.withOpacity(0.6),
+                            fontSize: 10,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildProfileSection() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.teal.shade300, Colors.teal.shade200],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 2),
-            ),
-            child: const CircleAvatar(
-              radius: 14,
-              backgroundImage: AssetImage('assets/woman.png'),
-            ),
-          ),
-          const SizedBox(width: 8),
-          const Text(
-            'Keerthana',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-        ],
       ),
     );
   }
-
-  void _showCalendarDialog(BuildContext context) async {
-    if (!context.mounted) return;
-
-    await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-  }
-
-  void _showNotificationDialog() {}
 }
